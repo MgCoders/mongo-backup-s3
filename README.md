@@ -3,6 +3,7 @@
 Docker image that performs periodic backups on a MongoDB database and then uploads the results to Amazon S3.
 
 Based on the [dbader/schedule](https://github.com/dbader/schedule) Python scheduling package.
+Based on [mondora/mongo-s3-backup](https://github.com/mondora/mongo-s3-backup)
 
 ## Configuration
 
@@ -12,6 +13,8 @@ Name | Description | Default
 --- | --- | ---
 `MONGO_HOST` | MongoDB instance hostname | *Required*
 `MONGO_DB` | MongoDB database name | *Required*
+`MONGO_USERNAME` | MongoDB instance username | *Required*
+`MONGO_PASSWORD` | MongoDB database password | *Required*
 `S3_BUCKET` | Amazon S3 bucket name | *Required*
 `AWS_ACCESS_KEY_ID` | Amazon AWS access key | *Required*
 `AWS_SECRET_ACCESS_KEY` | Amazon AWS secret | *Required*
@@ -25,5 +28,5 @@ Name | Description | Default
 The following command starts a *mongo-s3-backup* container that will stay in the background uploading backups of the *testdb* database on the *my-mongo-host* MongoDB instance every day at 2:00. The backups will be uploaded to an S3 bucket named *my-s3-bucket*:
 
 ```
-docker run -d -e MONGO_HOST=my-mongo-host -e MONGO_DB=testdb -e S3_BUCKET=my-s3-bucket -e AWS_ACCESS_KEY_ID=<your_access_key> -e AWS_SECRET_ACCESS_KEY=<your_access_secret> -e BACKUP_INTERVAL=1 --name mongo_backups agmangas/mongo-backup-s3
+docker run -d -e MONGO_HOST=my-mongo-host -e MONGO_DB=testdb -e MONGO_USERNAME=user -e MONGO_PASSWORD=pass -e S3_BUCKET=my-s3-bucket -e AWS_ACCESS_KEY_ID=<your_access_key> -e AWS_SECRET_ACCESS_KEY=<your_access_secret> -e BACKUP_INTERVAL=1 --name mongo_backups agmangas/mongo-backup-s3
 ```

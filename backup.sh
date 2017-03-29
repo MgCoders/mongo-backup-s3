@@ -4,6 +4,8 @@ set -e
 
 : ${MONGO_HOST:?}
 : ${MONGO_DB:?}
+: ${MONGO_USERNAME:?}
+: ${MONGO_PASSWORD:?}
 : ${S3_BUCKET:?}
 : ${AWS_ACCESS_KEY_ID:?}
 : ${AWS_SECRET_ACCESS_KEY:?}
@@ -21,7 +23,7 @@ rm -fr ${FOLDER} && mkdir -p ${FOLDER} && cd ${FOLDER}
 
 echo "Starting backup..."
 
-mongodump --host=${MONGO_HOST} --db=${MONGO_DB} --out=${DUMP_OUT}
+mongodump --host=${MONGO_HOST} --db=${MONGO_DB} --db=${MONGO_USERNAME} --db=${MONGO_PASSWORD} --out=${DUMP_OUT}
 
 echo "Compressing backup..."
 
